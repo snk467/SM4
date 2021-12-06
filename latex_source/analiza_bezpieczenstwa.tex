@@ -1,0 +1,39 @@
+\section{Analiza bezpieczeństwa}
+
+Od czasu pierwszej publikacji, SM4 został poddany wielu kryptoanalizom wykonanym przez międzynarodowych badaczy. Obecnie, nie są jednak znane żadne praktyczne ataki na pełny szyfr SM4. Jedyne pojawiające się obawy związane z kanałami bocznymi \cite{1}, gdy algorytm używany jest w implementacji sprzętowej. \\
+
+SM4 został przeanalizowany pod względem następujących typów ataków:
+\begin{itemize}
+    \item liniowe - kryptoanaliza liniowa jest jedną z najważniejszych technik analizy kryptograficznej z kluczem symetrycznym. Kryptoanaliza liniowa skupia się na liniowości przybliżenia między tekstem jawnym, tekstem zaszyfrowanym i kluczem. Jeśli szyfr zachowuje się inaczej niż losowa permutacja można zbudować wyróżnik lub nawet atak odzyskiwania klucza poprzez dodanie kilku rund. Podklucze dołączonych rund są odgadywane, a szyfrogramy są odszyfrowywane i/lub jawne teksty są szyfrowane przy użyciu tych podkluczy do obliczenia stanu pośredniego na końcach wyróżnika.
+    \item różnicowe - kryptoanaliza różnicowa, jest jednym z najpotężniejszych ataków na wybrany tekst jawny (lub wybrany tekst szyfrujący) w kryptografii symetryczno-kluczowej (tzn. w szyfrach blokowych, szyfrach strumieniowych, funkcjach haszujących i algorytmach MAC). Po wprowadzeniu tego ataku, został on skutecznie zastosowany do wielu znanych szyfrów, a także zaproponowano różne warianty tego ataku (atak na obciętą różnicę, atak na kwadrat, atak na różniczkę, atak na niemożliwą różnicę, atak na bumerang).
+    \item liniowe wielowymiarowe - Biryukov et al. \cite{2} zaproponował podejście, które może wykorzystywać wiele aproksymacji liniowych z różnymi bitami klucza. Jednakże, metody te zakładają, że aproksymacje liniowe są statystycznie niezależne.
+    \item niemożliwe różnicowe - w porównaniu z normalnymi atakami różnicowymi, niemożliwy atak różnicowy jest bardziej efektywny w przypadku niektórych szyfrów blokowych, takich jak np. AES. Zastosowanie w SMS4 jest również kolejnym skutecznym sposobem atakowania tuż po atakach różnicowych.
+    \item algebraiczne - Kryptoanaliza algebraiczna polega na znalezieniu i rozwiązaniu układu równań wielomianowych wielowartościowych w skończonym polu.
+    \item liniowe o zerowej korelacji,
+    \item integralne,
+    \item macierzowe. \\
+\end{itemize} 
+
+
+Porównanie najsilniejszych ataków na algorytm SM4 znajduje się w tabeli \ref{table:attacks}. Obecnie nie są powszechnie znane żadne skuteczne ataki powyżej 24 rundy.
+
+\begin{table}[h!]
+\centering
+\caption{Najsilniejsze ataki na SM4}
+\label{table:attacks}
+\begin{tabular}{ | c | cccc | } 
+\hline
+ Metoda & Rundy & Złożoność czasu & złożoność danych & złożoność pamięci \\
+\hline
+$Linear$ & 24 & 2^{122.6} & 2^{122.6} & 2^{85} \\
+$Multi-dimensional$ $Linear$ & 23 & 2^{122.7} & 2^{122.6} & 2^{120.6}\\
+$Differential$ & 23 & 2^{126.7} & 2^{117} & 2^{120.7}\\
+$Matrix$ & 18 & 2^{110.77} & 2^{127} & 2^{130}\\
+$Impossible$ $Differential$ & 17 & 2^{132} & 2^{117} & --\\
+$Zero-correlation$ $Linear$ & 14 & 2^{120.7} & 2^{123.5} & 2^{73}\\
+$Integral$ & 14 & 2^{96.5} & 2^{32} & --\\
+\hline
+\end{tabular}
+\end{table}
+
+Kwestie bezpieczeństwa są w Chinach niezwykle istotne. Produkty i usługi wykorzystujące kryptografię są regulowane przez SCA \cite{3} - muszą one być wyraźnie zatwierdzone lub certyfikowane przez SCA zanim zostaną dopuszczone do sprzedaży lub użytkowania w Chinach. Algorytm SM4 jest uważany tam za alternatywę dla AES-128.

@@ -1,0 +1,97 @@
+%styl klasy z Polskimi Normami oprac. Marcin Wolinski
+\documentclass[a4paper,titleauthor]{mwart} 
+
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx} %pakiet do wstawiania grafiki
+\usepackage[hyphens]{url} %pakiet do wstawiania linkow
+%\usepackage[hidelinks,breaklinks]{hyperref}
+\usepackage{authblk}%pakiet do tworzenia afiliacji
+\usepackage{tabularx}%pakiet do tabel
+\usepackage[a4paper, left=2cm, right=2cm, top=3cm, bottom=3cm]{geometry}
+\usepackage{listings}
+\usepackage{placeins}%pakiet do kontroli umieszczania obiektow
+\usepackage{hyperref}%pakiet do m.in. kolorowania linkow
+\usepackage{amsmath}%pakiet do matematyki np. równania na parę linijek
+\usepackage{float}%opcja [H] dla figur, zostają tam gdzie wstawiło je się w tekście
+\hypersetup{pdfborder=0 0 0}
+
+\usepackage[sorting=none]{biblatex}
+% \addbibresource{bibl}
+% \bibliography{bibl}
+
+\usepackage{changepage}
+
+
+
+% \documentclass[a4paper,11pt]{article}
+
+% \usepackage[cp1250]{inputenc}
+
+\usepackage[tablegrid,owncaptions]{vhistory}
+\renewcommand{\vhhistoryname}{Historia zmian}
+\renewcommand{\vhversionname}{Wersja}
+\renewcommand{\vhdatename}   {Data}
+\renewcommand{\vhauthorname} {Autor}
+\renewcommand{\vhchangename} {Opis zmian}
+
+\renewcommand\figurename{Rys.}%skrocony podpis
+\renewcommand\lstlistingname{Wydruk}
+\renewcommand\refname{Bibliografia}
+
+
+
+%------------------------------------------------------------------------
+% Dane do strony tytułowej
+
+\title{{\Huge  Projekt KRYS}\\ - \\{\Large Szyfr blokowy  SM4 }\\ }
+
+
+
+\author{Gabriela Maciejewska \and Sławomir Nikiel \and Aleksandra Krawczyk \vspace{25em}}
+
+
+
+
+\affil{Politechnika Warszawska,\\ Wydział Elektroniki i Technik Informacyjnych} % Wyrzuciłem instytut, bo nie mój ;]
+\date{27.11.2021}
+
+%------------------------------------------------------------------------
+% Początek dokumentu
+\begin{document}
+	
+%Automatycznie generowany tytuł dokumentu
+\maketitle
+
+%------------------------------------------------------------------------
+
+%------------------------------------------------------------------------
+% Automatycznie generowany spis treści
+\newpage
+\tableofcontents
+
+
+
+
+
+
+
+%------------------------------------------------------------------------
+%pliki z rodzialami
+\input{wstep}
+\input{rys_historyczny}
+\input{opis_szyfru}
+\input{analiza_bezpieczenstwa}
+\input{analiza_efektywnosci}
+% \input{implementacja}
+\input{bibliografia}
+
+
+%------------------------------------------------------------------------
+%bibliografia
+\newpage
+%\bibliographystyle{plabbrv} % plplain plabbrv plalpha
+%\bibliography{SYCYF_proj}
+\printbibliography[title={Bibliografia}]
+	
+\end{document}

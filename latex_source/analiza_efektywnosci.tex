@@ -1,0 +1,44 @@
+\section{Analiza efektywności}
+
+Efektywność algorytmu jest jedną z jego podstawowych cech. Możemy wyróżnić złożoność czasową i pamięciową algorytmu i na tej podstawie wybrać, który algorytm jest dla nas bardziej korzystny ze względu na czas, albo na złożoność pamięciową.\\
+
+\subsection{ Złożoność czasowa}
+Złożoność czasowa – to ilość czasu potrzebnego do wykonania zadania, wyrażona jako funkcja ilości danych, aby ją określić należy rozważyć złożoność poszczególnych operacji oraz ilość ich powtórzeń. Wynik powinien być sprawdzony dla każdej możliwej kombinacji wejściowej. Funkcja złożoności czasowej: t: {0, 1}* → N nazywamy złożonością czasową algorytmu A, jeżeli dla każdego x na wejściu algorytm zatrzymuje się po x krokach dokładnie w t(x). Jeśli funkcja otrzymuje skończoną liczbę danych wejściowych, to jej złożoność czasowa wynosi O(1), zależy więc od rozmiaru danych.\\
+
+Złożoność czasowa funkcji SM4:
+\begin{itemize}
+    \item funkcja rundy F -  funkcja otrzymuje pięć 32-bitowych wektorów i zwraca jeden 32 bitowy wektor, podczas tej funkcji wykonywane są 4 operacje XOR dwóch 32 bitowych wektorów oraz mieszane podstawienie T.
+    \item mieszanie podstawienie T - jest to odwracalna funkcja podstawienia, składa się z nieliniowego podstawienia τ oraz liniowego L.
+    \item nieliniowe podstawienie τ - funkcja otrzymuje na wejście 4 bajty i przy pomocy S box podstawia dane, jest to więc funkcja jednokierunkowa.
+    \item liniowe podstawienie L - funkcja przyjmująca 32-bitowy wektor i zwraca jeden 32 bitowy wektor, wykonuje 4 operacje XOR oraz 4 razy przesunięcie liniowe w lewo o 2, 10, 18 i 24 bity\\
+
+\end{itemize}\\\\
+
+Złożoność czasowa wszystkich tych funkcji wynosi O(1), wynika więc z tego, że algorytm SM4 posiada liniową złożoność czasową równą O(n).
+
+
+\subsection{ Złożoność pamięciowa}
+Złożoność pamięciowa jest miarą ilości pamięci wykorzystanej podczas wykonywania zadania obliczeniowego.\\
+
+Złożoność pamięciowa funkcji:
+\begin{itemize}
+    \item S-Box - mapuje 32-bitowe wejście na 32-bitowe wyjście i używa skończonej liczby
+parametrów pamięci tymczasowej do wykonania swojego zadania, wówczas jego złożoność pamięciowa wynosi O(1).
+    \item liniowe podstawienie L - funkcja przyjmująca 32-bitowy wektor i zwraca jeden 32 bitowy wektor, wykonuje 4 operacje XOR oraz 4 razy przesunięcie liniowe w lewo o 2, 10, 18 i 24 bity również jego złożoność pamięciowa wynosi O(1).
+    \item nieliniowe podstawienie τ - funkcja otrzymuje na wejście 4 bajty i przy pomocy S box podstawia dane, jest to więc funkcja jednokierunkowa, którego również złożoność pamięciowa wynosi O(1).
+    \item mieszanie podstawienie T  - składa się z nieliniowego podstawienia τ oraz liniowego L, których złożoność pamięciowa wynosi O(1), więc złożoność podstawienie T również wynosi O(1).
+    \item funkcja rundy F -  ze względu na to, że wszystkie operacje wykonywane w tej funkcji mają złożoność pamięciową O(1), to cała funkcja posiada również taką złożoność. \\
+
+\end{itemize}\\\\
+
+Po obliczeniu złożoności pamięciowej poszczególnych funkcji możemy stwierdzić, że złożoność pamięciowa całego algorytmu SM4 wynosi O(1).\\\\
+
+
+Naszym planem analizy efektywności jest porównanie złożoności poszczególnych operacji z innymi algorytmem blokowym, ze względu na popularność wybraliśmy algorytm AES. Skupimy się na porównaniu ilości niezbędnych operacji to zakodowania takiego samego ciągu znaków tj XOR, czy przesunięcia. Dzięki dostępności gotowych implementacji algorytmu AES, będziemy mogli również po zaimplementowaniu porównać czasy potrzebne dla szyfrowania tekstu dla algorytmu SM4 oraz AES.\cite{design_thinking} 
+
+
+
+
+
+
+
