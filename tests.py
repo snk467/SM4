@@ -1,6 +1,8 @@
 from SM4 import *
+from Crypto.Cipher import AES
 from termcolor import colored
 from tqdm import tqdm
+import time
 
 def printFAIL():
     print("[", colored('FAIL', 'red'), "]", end=' ')
@@ -140,6 +142,7 @@ expectedCiphertext = bytes.fromhex("595298c7c6fd271f0402f804c33d3f66")
 cipher = SM4(key)
 
 ciphertext = plaintext
+time_start_enc_SM4 = time.time()
 for _ in tqdm(range(0,1000000), leave=False):
     ciphertext = cipher.encrypt(ciphertext)
 
@@ -148,8 +151,8 @@ if ciphertext == expectedCiphertext:
     printOK()
 else:
     printFAIL()
-
-print("1000000 iterations encryption.", "Expected result: ", expectedCiphertext.hex(), "Result:", ciphertext.hex())
+time_end_enc_SM4 = time.time()
+print("1000000 iterations encryption.", "Expected result: ", expectedCiphertext.hex(), "Result:", ciphertext.hex(), "Time:", time_end_enc_SM4 - time_start_enc_SM4)
 
 #endregion
 
@@ -162,6 +165,7 @@ expectedPlaintext = bytes.fromhex("0123456789abcdeffedcba9876543210")
 
 cipher = SM4(key)
 
+time_start_dec_SM4 = time.time()
 for _ in tqdm(range(0,1000000), leave=False):
     ciphertext = cipher.decrypt(ciphertext)
 
@@ -173,6 +177,112 @@ if plaintext == expectedPlaintext:
 else:
     printFAIL()
 
-print("1000000 iterations decryption.", "Expected result: ", expectedPlaintext.hex(), "Result:", plaintext.hex())
+time_end_dec_SM4 = time.time()
+print("1000000 iterations decryption.", "Expected result: ", expectedPlaintext.hex(), "Result:", plaintext.hex(), "Time:", time_end_dec_SM4 - time_start_dec_SM4)
 
 #endregion
+
+
+#region Test #5 - Encrypt plaintext AES with key once
+
+# Test data
+plaintext = bytes.fromhex("0123456789abcdeffedcba9876543210")
+key = bytes.fromhex("0123456789abcdeffedcba9876543210")
+expectedCiphertextAES = bytes.fromhex("a674f5a389253565260d08dcbed5c971")
+
+cipher = AES.new(key, AES.MODE_ECB)
+ciphertext =cipher.encrypt(plaintext)
+
+
+# Test ciphertext 
+if ciphertext == expectedCiphertextAES:
+    printOK()
+else:
+    printFAIL()
+
+
+print("Encrypt plaintext with key once - AES.", "Expected result: ", expectedCiphertextAES.hex(), "Result:", ciphertext.hex())
+
+#endregion
+
+
+
+
+#region Test #6 - Decrypt ciphertext AES with key once
+
+# Test data
+ciphertext = bytes.fromhex("a674f5a389253565260d08dcbed5c971")
+key = bytes.fromhex("0123456789abcdeffedcba9876543210")
+expectedPlaintext = bytes.fromhex("0123456789abcdeffedcba9876543210")
+
+cipher = AES.new(key, AES.MODE_ECB)
+plaintext = cipher.decrypt(ciphertext)
+
+
+# Test plaintext 
+if plaintext == expectedPlaintext:
+    printOK()
+else:
+    printFAIL()
+
+print("Decrypt ciphertext with key once - AES.", "Expected result: ", expectedPlaintext.hex(), "Result:", plaintext.hex())
+
+#endregion
+
+
+
+#region Test #7 - 1000000 iterations encryption AES
+
+# Test data
+plaintext = bytes.fromhex("0123456789abcdeffedcba9876543210")
+key = bytes.fromhex("0123456789abcdeffedcba9876543210")
+expectedCiphertextAES = bytes.fromhex("a674f5a389253565260d08dcbed5c971")
+
+# cipher = SM4(key)
+
+cipher = AES.new(key, AES.MODE_ECB)
+ciphertext = plaintext
+
+
+time_start_enc_AES = time.time()
+for _ in tqdm(range(0,1000000), leave=False):
+    ciphertext = cipher.encrypt(plaintext)  
+
+# Test ciphertext 
+if ciphertext == expectedCiphertextAES:
+    printOK()
+else:
+    printFAIL()
+
+
+time_end_enc_AES = time.time()
+print("1000000 iterations encryption - AES.", "Expected result: ", expectedCiphertextAES.hex(), "Result:", ciphertext.hex(), "Time:", time_end_enc_AES - time_start_enc_AES)
+
+# #endregion
+
+#region Test #8 - 10000 iterations decryption AES
+
+# Test data
+ciphertext = bytes.fromhex("a674f5a389253565260d08dcbed5c971")
+key = bytes.fromhex("0123456789abcdeffedcba9876543210")
+expectedPlaintext = bytes.fromhex("0123456789abcdeffedcba9876543210")
+
+
+
+cipher = AES.new(key, AES.MODE_ECB)
+time_start_dec_AES = time.time()
+for _ in tqdm(range(0,1000000), leave=False):
+    plaintext = cipher.decrypt(ciphertext)
+
+
+# Test ciphertext 
+if plaintext == expectedPlaintext:
+    printOK()
+else:
+    printFAIL()
+time_end_dec_AES = time.time()
+print("1000000 iterations decryption - AES.", "Expected result: ", expectedPlaintext.hex(), "Result:", plaintext.hex(), "Time:", time_end_dec_AES - time_start_dec_AES)
+
+#endregion
+
+
